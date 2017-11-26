@@ -1,11 +1,13 @@
 class displayMails {
 
-  displayOneMail(){
+    displayOneMail(mailFrom, mailTo, subject) {
 
-  }
+    }
 
-  displayMailsFromFile(){
+    displayMailsFromFile() {
 
-  }
+    }
 
 }
+
+module.exports = displayMails;
