@@ -1,0 +1,10 @@
+class Configuration{
+
+  addMethod(){
+
+  }
+
+  deleteMethod(){
+    
+  }
+}
