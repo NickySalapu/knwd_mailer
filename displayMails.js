@@ -1,6 +1,6 @@
 class displayMails {
 
-    displayOneMail(mailFrom, mailTo, subject) {
+    displayOneMail(mailFrom2, mailTo, subject) {
 
     }
 
@@ -9,5 +9,3 @@ class displayMails {
     }
 
 }
-
-module.exports = displayMails;
