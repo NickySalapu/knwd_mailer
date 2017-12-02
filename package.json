@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/NickySalapu/knwd_mailer#readme",
   "dependencies": {
+    "fs": "0.0.1-security",
     "nodemailer": "^4.4.0",
     "request": "^2.83.0",
     "sqlite3": "^3.1.13"
