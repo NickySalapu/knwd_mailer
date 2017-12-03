@@ -81,7 +81,7 @@ class displayMails {
             if (err) {
                 throw err;
             }
-            // console.log(`${row.mailFrom} - ${row.mailTo} : ${row.subject}`);
+            console.log(`${row.mailFrom} - ${row.mailTo} : ${row.subject}`);
             // console.log(row);
 
         });
