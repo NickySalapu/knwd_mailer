@@ -4,8 +4,10 @@
 // const User = require('./displayMails.js');
 // let user = new User();
 
-const Configuration = require('./configuration.js');
-let conf = new Configuration();
+const configuration = require('./configuration.js');
+let conf = new configuration();
+// const SendMail = require('./SendMail.js');
+// let send = new SendMail();
 // var check;
 // db.serialize(function() {
 
@@ -20,9 +22,10 @@ let conf = new Configuration();
 //     db.each("SELECT mail_name AS mail, mailing_list_name FROM mailingList", function(err, row) {
 //         console.log(row.mail + ": " + row.mailing_list_name);
 //     });
-//     db.each("SELECT host, port, secure, user, password, mailFrom FROM configuration", function(err, row) {
-//         console.log(row.host + ": " + row.port + ": " + row.secure);
-//     });
+
+// db.each("SELECT configurationName, host, port, secure, user, password, mailFrom FROM configuration", function(err, row) {
+//     console.log(row.configurationName + ": " + row.host + ": " + row.port + ": " + row.secure);
+// });
 //     db.each("SELECT mailFrom, mailTo, subject, tekst, html FROM mailList", function(err, row) {
 //         console.log(row.mailFrom + ": " + row.mailTo);
 //     });
@@ -33,8 +36,12 @@ var check;
 
 // user.displayOneMail('kacper@gmail.com', 'gawlowski@gmail.com', 'Test');
 // user.displayMailsFromFile('D:/Documents/Desktop/test.csv');
+
 // conf.addMethod('D:/Documents/Desktop/test2.txt')
-conf.selectMethod('testowa2');
+let konfiguracja = [];
+console.log(conf.selectMethod('testowa3'));
+// console.log(konfiguracja);
+// send.sendMail(konfiguracja);
 const args = process.argv;
 // console.log(args);
 

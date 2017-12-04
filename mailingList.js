@@ -1,57 +1,63 @@
 class MailList {
+    addMailList(pathToFile, listName) {
+        let sqlite3 = require('sqlite3');
+        let db = new sqlite3.Database('./db/knwd_mailer.db');
+        const fs = requre('fs');
+        let mailList = [];
 
-
-
-    addMailList(mail_name, mailing_list_name) {
-
-            let db = require('sqllite3');
-            let db2 = new Database(. / db / knwd_mailer.db)
-
-            knwd_mailer.db.run("Intert INTO mailingList (mail_name,mailing_list_name) VALUES('szczepi@szczepi.pl', 'test1'", function(err) {
-                if (err) {
-                    return console.log(err.message);
+        fs.readFile(pathToFile, 'UTF-8', function(err, data) {
+            data = data.split(/[\n,;]/);
+            for (var i = 0; i < data.lenght; i++) {
+                mailList.push(data[i]);
+            }
+            db.serialize(function() {
+                for (var i = 0; i < data.lenght; i++) {
+                    db.run('INSERT INTO maillingList (mail_name, mailing_list_name) VALUES(' + mailList[i] + ', ' + listName + ');');
                 }
-                console.log('A row has been inserted.')
+                db.close();
             });
-            db.close();
-
-
-            deleteRecord() {
-                let delete = "DELETE FROM mail_name, mailing_list_name WHERE mail_name = 'szczepi@szczepi.pl', mailing_list_name = 'test1'",
-                    function(err) {
+        });
+    }
+    deleteRecord(pathToFile) {
+        let sqlite3 = require('sqlite3');
+        let db = new sqlite3.Database('./db/knwd_mailer.db');
+        const fs = requre('fs');
+        let mailList = [];
+        fs.readFile(pathToFile, 'UTF-8', function(err, data) {
+            data = data.split(/[\n,;]/);
+            for (var i = 0; i < data.lenght; i++) {
+                mailList.push(data[i]);
+            }
+            db.serialize(function() {
+                for (var i = 0; i < data.lenght; i++) {
+                    db.each('DELETE FROM mailingList WHERE mailName IN (' + mailList[i] + ')', function(err, row) {
                         if (err) {
-                            return console.log(err.message);
+                            console.log('error');
+                        } else {
+                            console.log(row);
                         }
-                        console.log("Number of records deleted: " + result.affectedRows);
                     });
-            db.close();
+                }
+                db.close();
+            });
+        });
+    }
 
-            displayMailList(mail_name, mailing_list_name) {
-                    let db = require('sqllite3');
-                    let db2 = new Database(. / db / knwd_mailer.db)
-                    let parse = require('csv-parse');
-
-                    let csvData = [];
-                    sqllite3.createReadStream(knwd_mailer)
-                        .pipe(prase({ declimiter: ',' }))
-                        .on('data', function(csvrow) {
-                                console.log(csvrow);
-                            }
-                        })
-                // ?????????????????????????????
-
-            let chceck;
-            knwd_mailer.db.serialize(function() {
-
-                    knwd_mailer.db.each("SELECT mail_name AS mail FROM mailingList WHERE mailList = ?", mail_name, function(err, row) {
-                        console.log(row.mail + ": " + row.mailing_list_name);
-                    ));
-                    displayMailList() {
-
-                        displayMailList(nameMail, nameList)
-                    }); db.close();
+    displayMailListFile(mailList) {
+        const sqlite3 = require('sqlite3').verbose();
+        let db = new sqlite3.Database('./db/knwd_mailer.db');
+        db.each('SELECT mailName FROM mailingList WHERE mailing_list_name = ?', mailList, function(err, row) {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log('Mail name');
+                for (var i = 0; i < row.length; i++) {
+                    console.log(`${row[i].mailName}`);
+                }
             }
+        });
+        db.close();
+    }
+}
 
-            displayMailList() {
-
-            }
+module.exports = mailingList;
