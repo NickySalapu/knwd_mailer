@@ -9,6 +9,7 @@ class displayMails {
                 throw err;
             }
             // console.log(`${row.mailFrom} - ${row.mailTo} : ${row.subject}`);
+		//cos
         });
         db.close();
     }
