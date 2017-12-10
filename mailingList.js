@@ -1,10 +1,10 @@
-class MailList {
+let sqlite3 = require('sqlite3');
+let db = new sqlite3.Database('./db/knwd_mailer.db');
+const fs = require('fs');
+class mailingList {
     addMailList(pathToFile, listName) {
-        let sqlite3 = require('sqlite3');
-        let db = new sqlite3.Database('./db/knwd_mailer.db');
         const fs = requre('fs');
         let mailList = [];
-
         fs.readFile(pathToFile, 'UTF-8', function(err, data) {
             data = data.split(/[\n,;]/);
             for (var i = 0; i < data.lenght; i++) {
@@ -19,8 +19,6 @@ class MailList {
         });
     }
     deleteRecord(pathToFile) {
-        let sqlite3 = require('sqlite3');
-        let db = new sqlite3.Database('./db/knwd_mailer.db');
         const fs = requre('fs');
         let mailList = [];
         fs.readFile(pathToFile, 'UTF-8', function(err, data) {
@@ -42,21 +40,24 @@ class MailList {
             });
         });
     }
-
-    displayMailListFile(mailList) {
-        const sqlite3 = require('sqlite3').verbose();
-        let db = new sqlite3.Database('./db/knwd_mailer.db');
-        db.each('SELECT mailName FROM mailingList WHERE mailing_list_name = ?', mailList, function(err, row) {
-            if (err) {
-                console.log(err);
-            } else {
-                console.log('Mail name');
-                for (var i = 0; i < row.length; i++) {
-                    console.log(`${row[i].mailName}`);
+    displayMailListFile(pathToFile) {
+        let mailingListName = [];
+        return new Promise((res, rej) => {
+            fs.readFile(pathToFile, 'UTF-8', function(err, data) {
+                data = data.split(/[\n,;]/);
+                for (var i = 0; i < data.length; i++) {
+                    mailingListName.push(data[i]);
                 }
-            }
+                db.all('SELECT mail_name FROM mailingList WHERE mailing_list_name IN (' + mailingListName + ')', function(err, row) {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        res(row);
+                        db.close();
+                    }
+                });
+            });
         });
-        db.close();
     }
 }
 
