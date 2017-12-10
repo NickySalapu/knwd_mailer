@@ -4,7 +4,7 @@
  class Configuration {
      selectMethod(configurationName) {
          return new Promise((res, rej) => {
-             db.all("SELECT host, port, secure, user, password, configurationName FROM configuration WHERE configurationName = ?", configurationName, function(err, row) {
+             db.all("SELECT host, port, secure, user, password, configurationName, mailFrom FROM configuration WHERE configurationName = ?", configurationName, function(err, row) {
                  if (err) {
                      console.log("error");
                  } else {
