@@ -1,3 +1,6 @@
+let sqlite3 = require('sqlite3').verbose();
+let db = new sqlite3.Database('./db/knwd_mailer.db');
+
 class sendMail {
     sendMail(configuration) {
         const nodemailer = require('nodemailer');
@@ -12,15 +15,27 @@ class sendMail {
                     pass: account.pass // generated ethereal password
                 }
             });
-            let id = Math.floor((Math.random() * 100000) + 1); //random id for email
+
+            //INSERT data to database
+            var id = Math.floor((Math.random() * 100000) + 1); //random id for email
+            //var from = configuration.mailFrom;
+            var from = 'fred@foo.com';
+            var to = 'bar@lurdybloop.com';
+            var subject = 'Hello';
+            var text = 'Hello World';
+            var html = 'Hello world?';
+            var img = '<img src="http://mail.pietruszka.usermd.net/api/check/' + id + '">';
+
+            db.run("INSERT INTO mailList (mailFrom, mailTo, subject, tekst, html, id_mailTo) VALUES ('"+from+"', '"+to+"', '"+subject+"', '"+text+"', '"+html+"', '"+id+"')");
+
             // setup email data with unicode symbols
             let mailOptions = {
-                from: configuration.mailFrom, // sender address
-                to: 'bar@blurdybloop.com, baz@blurdybloop.com', // list of receivers
-                subject: 'Hello ✔', // Subject line
-                text: 'Hello world?', // plain text body
-                html: '<b>Hello world?</b>', // html body
-                img: '<img src="http://mail.pietruszka.usermd.net/api/check/' + id + '">'
+                from: from, // sender address
+                to: to, // list of receivers
+                subject: subject, // Subject line
+                text: text, // plain text body
+                html: html+img, // html body
+
             };
 
             // send mail with defined transport object
