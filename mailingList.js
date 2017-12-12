@@ -30,9 +30,9 @@ class mailingList {
                 for (var i = 0; i < data.lenght; i++) {
                     db.each('DELETE FROM mailingList WHERE mailName IN (' + mailList[i] + ')', function(err, row) {
                         if (err) {
-                            console.log('error');
+                            console.log(err);
                         } else {
-                            console.log(row);
+                            console.log("Data sucessfully deleted");
                         }
                     });
                 }
@@ -40,6 +40,21 @@ class mailingList {
             });
         });
     }
+
+    displayMailList(mailing_list_name) {
+        let mailingListName = [];
+        return new Promise((res, rej) => {
+            db.all('SELECT mail_name FROM mailingList WHERE mailing_list_name = ?', mailing_list_name, function(err, row) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    res(row);
+                    db.close();
+                }
+            });
+        })
+    }
+
     displayMailListFile(pathToFile) {
         let mailingListName = [];
         return new Promise((res, rej) => {
