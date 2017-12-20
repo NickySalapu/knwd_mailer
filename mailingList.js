@@ -15,7 +15,7 @@ class mailingList {
                         if (err) {
                             console.log(err);
                         } else {
-                            console.log("Sucessfully inserted")
+                            console.log("Mailing list sucessfully inserted")
                         }
                     });
                 }
@@ -37,7 +37,7 @@ class mailingList {
                         if (err) {
                             console.log(err);
                         } else {
-                            console.log("Data sucessfully deleted");
+                            console.log("Mailing list sucessfully deleted");
                         }
                     });
                 }

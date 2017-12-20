@@ -7,7 +7,7 @@ class displayMails {
         return new Promise((res, rej) => {
             db.all(`SELECT mailFrom, mailTo, subject FROM mailList WHERE mailFrom = ? AND mailTo = ? AND subject = ?`, mailFrom, mailTo, subject, function(err, row) {
                 if (err) {
-                    console.log("error");
+                    console.log(err);
                 } else {
                     res(row);
                     db.close();
@@ -30,7 +30,7 @@ class displayMails {
                 }
                 db.all('SELECT mailFrom, mailTo, subject, tekst, html FROM mailList WHERE mailFrom IN (' + mailFrom + ') AND mailTo IN (' + mailTo + ') AND subject IN (' + subject + ')', function(err, row) {
                     if (err) {
-                        console.log("error");
+                        console.log(err);
                     } else {
                         res(row);
                         db.close();

@@ -3,7 +3,7 @@ let db = new sqlite3.Database('./db/knwd_mailer.db');
 const nodemailer = require('nodemailer');
 const fs = require('fs');
 class sendMail {
-    sendMail(configuration, pathToFile) {
+    sendMail(configuration, pathToFile, fileToSend, pathToSend) {
         nodemailer.createTestAccount((err, account) => {
             // create reusable transporter object using the default SMTP transport
             let transporter = nodemailer.createTransport({
@@ -35,14 +35,13 @@ class sendMail {
                     var id = Math.floor((Math.random() * 100000) + 1); //random id for email
 
                     var img = '<img src="http://mail.pietruszka.usermd.net/api/check/' + id + '">';
-
-                    // db.run("INSERT INTO mailList (mailFrom, mailTo, subject, tekst, html, id_mailTo) VALUES ('" + from[0] + "', '" + to[0] + "', '" + subject[0] + "', '" + text[0] + "', '" + html[0] + "', '" + id + "')", function(err) {
-                    //     if (err) {
-                    //         console.log(err);
-                    //     } else {
-                    //         console.log("Inserted sucessfully");
-                    //     }
-                    // });
+                    db.run("INSERT INTO mailList (mailFrom, mailTo, subject, tekst, html, id_mailTo) VALUES (' + from[0] + ', ' + to[0] + ', ' + subject[0] + ', ' + text[0] + ', ' + html[0] + ', ' + id + ')", function(err) {
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            console.log("E-mail inserted sucessfully");
+                        }
+                    });
 
                     // setup email data with unicode symbols
 
@@ -52,6 +51,10 @@ class sendMail {
                         subject: subject[0], // Subject line
                         text: text[0], // plain text body
                         html: html[0] + img, // html body
+                        attachments: [{
+                            filename: fileToSend,
+                            path: pathToSend
+                        }]
 
                     };
                     // send mail with defined transport object

@@ -13,7 +13,6 @@ class App {
         this.opnMails = new openedMails();
         this.sndMail = new SendMail();
     }
-
 }
 let app = new App();
 
@@ -50,14 +49,15 @@ for (let i = 0; i < args.length; i++) {
         case '--snd':
             let configuration = null;
             let mailList = null;
-            app.conf.selectMethod('testowa7').then(row => {
+            app.conf.selectMethod(args[i + 1]).then(row => {
                 configuration = row[0];
-            }).then(app.mailingLst.displayMailList('testowa4').then(row => {
+            }).then(app.mailingLst.displayMailList(args[i + 2]).then(row => {
                 mailList = row[0];
-                console.log(configuration);
                 let path = 'D:/Documents/Desktop/test3.txt'
-                app.sndMail.sendMail(configuration, path);
+                app.sndMail.sendMail(configuration, path, 'test3.txt', path);
             }));
+        case '--openedMails':
+            app.opnMails.ifOpened();
         default:
             break;
     }

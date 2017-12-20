@@ -6,7 +6,7 @@
          return new Promise((res, rej) => {
              db.all("SELECT host, port, secure, user, password, configurationName, mailFrom FROM configuration WHERE configurationName = ?", configurationName, function(err, row) {
                  if (err) {
-                     console.log("error");
+                     console.log(err);
                  } else {
                      res(row);
                  }
@@ -41,7 +41,7 @@
                              if (err) {
                                  console.log(err);
                              } else {
-                                 console.log("Inserted sucessfully");
+                                 console.log("Configuration inserted sucessfully");
                                  res();
                              }
 
@@ -65,7 +65,7 @@
                          if (err) {
                              console.log(err);
                          } else {
-                             console.log("Data sucessfully deleted");
+                             console.log("Configuration sucessfully deleted");
                          }
                      });
              });
