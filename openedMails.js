@@ -4,6 +4,7 @@ var db = new sqlite3.Database('./db/knwd_mailer.db');
 
 class openedMails {
 
+
   ifOpened() {
 
     ////////////////////////////////////////////////////
@@ -37,6 +38,7 @@ class openedMails {
 
     //////////////////////////////////////////////////////////////
   }
+
 
 }
 
